@@ -1,0 +1,9 @@
+<Solution>
+  <Project Path="BambooCards.Application/BambooCards.Application.csproj" />
+  <Project Path="BambooCards.Assessment.AppHost/BambooCards.Assessment.AppHost.csproj" />
+  <Project Path="BambooCards.Assessment.ServiceDefaults/BambooCards.Assessment.ServiceDefaults.csproj" />
+  <Project Path="BambooCards.Assessment/BambooCards.Assessment.csproj" />
+  <Project Path="BambooCards.Infrastructure/BambooCards.Infrastructure.csproj" />
+  <Project Path="BambooCards.IntegrationTests/BambooCards.IntegrationTests.csproj" Id="278cb3da-54e2-48bd-af72-c0f620f023be" />
+  <Project Path="BambooCards.UnitTest/BambooCards.UnitTest.csproj" Id="66aea097-2cd9-4ded-930e-c64f4f6f272f" />
+</Solution>
