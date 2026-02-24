@@ -15,7 +15,7 @@ configMapGenerator:
     - HTTP_PORTS=8080
     - REDIS_HOST=redis
     - REDIS_PORT=6379
-    - REDIS_PASSWORD=sVqnd9qLTLYgWjIqdHqoAY
+    - REDIS_PASSWORD=!aMfXW1VPPHz2BF05iyPe4
     - REDIS_URI=redis://:{redis-password-uri-encoded.value}@redis:6379
     - KEYCLOAK_HTTP=http://keycloak:8080
     - services__keycloak__http__0=http://keycloak:8080

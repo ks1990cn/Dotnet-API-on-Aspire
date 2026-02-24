@@ -1,10 +1,7 @@
-namespace: bamboocard
-
 resources:
 - redis
 - keycloak
 - BambooCards
-- namespace.yaml
 - dashboard.yaml
 
 generatorOptions:

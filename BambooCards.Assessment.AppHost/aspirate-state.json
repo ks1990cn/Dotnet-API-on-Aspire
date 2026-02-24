@@ -2,7 +2,6 @@
   "projectPath": ".",
   "inputPath": "aspirate-output",
   "outputPath": "aspirate-output",
-  "namespace": "bamboocard",
   "containerRegistry": "docker.io",
   "containerImageTags": [
     "latest"
@@ -15,18 +14,18 @@
   "skipFinalKustomizeGeneration": false,
   "privateRegistryEmail": "aspir8@aka.ms",
   "includeDashboard": true,
-  "useCustomNamespace": true,
+  "useCustomNamespace": false,
   "secrets": {
-    "salt": "LMqeo0TWZpsQShOe",
-    "hash": "QFypYSdCvSY0j0WAn7TlNhKp72zKjplKeXMD9BC4ggQ=",
+    "salt": "1mXW2jayjDW6l/8T",
+    "hash": "dQ06kxep2yR16U/dgsSrWv1ryYPRkeuKTRVeEG6KaTs=",
     "secrets": {
       "redis-password": {
-        "value": "LMqeo0TWZpsQShOeF3U\u002BZofS5NoRviX4YxPZUKxZVGuw9Y5x0\u002B7GmZ7j6gj9qaWl9po="
+        "value": "1mXW2jayjDW6l/8TFfMQLH5rBQPbFX/D/5ipDTWJaGRNqFIu58R9AGBFTKTdyJW9EsQ="
       },
       "redis": {},
       "keycloak": {},
       "BambooCards": {
-        "ConnectionStrings__redis": "LMqeo0TWZpsQShOeBpBipKw5QBM4SpV9ffVmMK1qQWyn9skOsJuzjqj60A72k7D3xJUKhmtL/TnW3oH2XDT14XB3oSiRhg=="
+        "ConnectionStrings__redis": "1mXW2jayjDW6l/8TCmlHCGlHnmsSn46BrlcQF2aNQWtmxVVLgK0ZCjN0eeOH04jQVpHFlaLP80zdb\u002BWBBnfYWKek4Qq7qQ=="
       }
     }
   },
