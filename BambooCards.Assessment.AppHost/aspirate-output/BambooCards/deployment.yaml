@@ -1,0 +1,35 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: bamboocards
+  labels:
+    app: bamboocards
+spec:
+  minReadySeconds: 60
+  replicas: 1
+  selector:
+    matchLabels:
+      app: bamboocards
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        app: bamboocards
+    spec:
+      containers:
+      - name: bamboocards
+        image: docker.io/ks1990cn/bamboocards:latest
+        imagePullPolicy: Always
+        ports:
+        - name: http
+          containerPort: 8080
+        - name: https
+          containerPort: 8443
+        envFrom:
+        - configMapRef:
+            name: bamboocards-env
+        - secretRef:
+            name: bamboocards-secrets
+      terminationGracePeriodSeconds: 180

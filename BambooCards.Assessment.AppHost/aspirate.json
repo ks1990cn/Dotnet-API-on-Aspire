@@ -1,0 +1,10 @@
+{
+    "TemplatePath": null,
+    "ContainerSettings": {
+        "Registry": "docker.io",
+        "RepositoryPrefix": "ks1990cn",
+        "ImageName": "bamboocards1",
+        "Tags": [ "latest" ],
+        "Builder": "docker"
+    }
+}
