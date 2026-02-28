@@ -66,7 +66,7 @@ namespace BambooCards.Infrastructure.DependencyInjection
 
                     options.TokenValidationParameters = new TokenValidationParameters
                     {
-                        ValidateIssuer = true,
+                        ValidateIssuer = false,
                         ValidIssuer = keycloakUri + keycloakOptions.Authority,
                         ValidateAudience = true,
                         ValidAudience = keycloakOptions.Audience,
