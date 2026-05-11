@@ -9,9 +9,21 @@ var keycloak = builder.AddKeycloakContainer("keycloak")
     .WithEnvironment("KC_HTTP_ENABLED", "true")
     .WithEnvironment("KC_HOSTNAME_STRICT", "false")
     .WithEnvironment("KC_PROXY", "edge")
-    .WithHttpHealthCheck("/").WithImport("../BambooCards.Keycloak.Realm/realm-export.json"); 
+    .WithHttpHealthCheck("/").WithImport("../BambooCards.Keycloak.Realm/realm-export.json");
 
+// SQL Server
+var sql = builder.AddSqlServer("sql")
+                 .WithLifetime(ContainerLifetime.Persistent);
 
+var db = sql.AddDatabase("appdb");
+
+//LLM
+var ollama = builder.AddContainer("ollama", "ollama/ollama")
+    .WithHttpEndpoint(
+        targetPort: 11434,
+        port: 11434,
+        name: "ollama")
+    .WithLifetime(ContainerLifetime.Persistent);
 
 // WEB API
 builder.AddProject<Projects.BambooCards_Assessment>("BambooCards")
@@ -19,5 +31,8 @@ builder.AddProject<Projects.BambooCards_Assessment>("BambooCards")
     .WithReference(keycloak)
     .WaitFor(redis)
     .WaitFor(keycloak);
+
+builder.AddProject<Projects.BambooCards_AI>("bamboocards-ai")
+    .WithReference(db); 
 
 builder.Build().Run();
