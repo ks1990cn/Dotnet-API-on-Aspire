@@ -19,10 +19,13 @@ var db = sql.AddDatabase("appdb");
 
 //LLM
 var ollama = builder.AddContainer("ollama", "ollama/ollama")
+    .WithVolume("ollama-data", "/root/.ollama")
     .WithHttpEndpoint(
         targetPort: 11434,
         port: 11434,
         name: "ollama")
+    .WithEntrypoint("/bin/sh")
+    .WithArgs("-c", "ollama serve & sleep 5 && ollama pull qwen2.5:7b && wait")
     .WithLifetime(ContainerLifetime.Persistent);
 
 // WEB API
