@@ -1,11 +1,13 @@
-﻿using ModelContextProtocol.Server;
+﻿using System.ComponentModel;
+using Microsoft.SemanticKernel;
+using ModelContextProtocol.Server;
 namespace BambooCards.AI.MCPServer
 {
-    [McpServerToolType]
     public class TestTools
     {
-        [McpServerTool]
-        public string Hello(string name)
+        [KernelFunction]
+        [Description("Sends a friendly greeting to a specific person by name.")] // ADD THIS
+        public string Hello([Description("The name of the person to greet")] string name) // ADD THIS
         {
             return $"Hello {name}";
         }
