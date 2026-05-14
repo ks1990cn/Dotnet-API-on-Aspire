@@ -7,7 +7,9 @@
 	</PropertyGroup>
 
 	<ItemGroup>
+		<PackageReference Include="Microsoft.Agents.AI" Version="1.5.0" />
 		<PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="10.0.5" />
+		<PackageReference Include="Microsoft.Extensions.AI.OpenAI" Version="10.6.0" />
 
 		<!-- MATCHING VERSIONS -->
 		<PackageReference Include="Microsoft.SemanticKernel" Version="1.76.0" />
@@ -16,6 +18,7 @@
 
 		<PackageReference Include="ModelContextProtocol" Version="1.3.0" />
 		<PackageReference Include="ModelContextProtocol.AspNetCore" Version="1.3.0" />
+		<PackageReference Include="OpenAI" Version="2.10.0" />
 	</ItemGroup>
 
 	<ItemGroup>
