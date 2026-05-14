@@ -43,6 +43,12 @@ namespace BambooCards.AI.Controllers
 
             return Ok(result.Content);
         }
+
+        /// <summary>
+        /// This is example for linear workflow
+        /// </summary>
+        /// <param name="prompt"></param>
+        /// <returns></returns>
         [HttpPost("agent")]
         public async Task<IActionResult> OpenAIAgentChat([FromBody] string prompt)
         {

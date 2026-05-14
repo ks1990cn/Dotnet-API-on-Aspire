@@ -29,7 +29,7 @@ var ollama = builder
     .WithLifetime(ContainerLifetime.Persistent)
     .WithEntrypoint("/bin/sh")
     .WithArgs("-c", "ollama serve & sleep 5 && ollama pull llama3 && wait");
-
+// docker exec -it ollama-6947438b ollama pull qwen2.5:7b
 // WEB API
 builder.AddProject<Projects.BambooCards_Assessment>("BambooCards")
     .WithReference(redis)
