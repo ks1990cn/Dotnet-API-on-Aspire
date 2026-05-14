@@ -17,18 +17,16 @@ var sql = builder.AddSqlServer("sql")
 
 var db = sql.AddDatabase("appdb");
 // OLLAMA
+// Define the volume for persistence
 var ollama = builder
     .AddContainer("ollama", "ollama/ollama")
-    .WithHttpEndpoint(
-        port: 11434,
-        targetPort: 11434,
-        name: "http")
-    .WithBindMount(
-        "../ollama-data",
-        "/root/.ollama")
+    .WithHttpEndpoint(port: 11434, targetPort: 11434, name: "http")
+    .WithBindMount(@"C:\ollama-data", "/root/.ollama")
+    .WithEnvironment("OLLAMA_MODELS", "/root/.ollama/models")
     .WithLifetime(ContainerLifetime.Persistent)
     .WithEntrypoint("/bin/sh")
-    .WithArgs("-c", "ollama serve & sleep 5 && ollama pull llama3 && wait");
+    // Use a flat string without any line breaks to avoid \r
+    .WithArgs("-c", "ollama serve & sleep 5 && ollama pull qwen2.5:7b && wait");
 // docker exec -it ollama-6947438b ollama pull qwen2.5:7b
 // WEB API
 builder.AddProject<Projects.BambooCards_Assessment>("BambooCards")
