@@ -62,7 +62,7 @@ namespace BambooCards.AI.Controllers
                 name: "Assistant",
                 description: "Helpful assistant",
                 instructions: "You are a helpful C# assistant.");
-
+            
             var result = await agent.RunAsync(prompt);
 
             return Ok(result);
