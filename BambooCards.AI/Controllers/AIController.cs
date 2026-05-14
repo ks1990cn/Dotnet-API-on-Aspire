@@ -1,4 +1,5 @@
 ﻿using System.ClientModel;
+using BambooCards.AI.Tools;
 using Microsoft.Agents.AI;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.AI;
@@ -6,7 +7,7 @@ using Microsoft.SemanticKernel;
 using Microsoft.SemanticKernel.ChatCompletion;
 using Microsoft.SemanticKernel.Connectors.Google;
 using OpenAI;
-using OpenAI.Chat;
+
 namespace BambooCards.AI.Controllers
 {
     
@@ -42,30 +43,34 @@ namespace BambooCards.AI.Controllers
 
             return Ok(result.Content);
         }
-
         [HttpPost("agent")]
         public async Task<IActionResult> OpenAIAgentChat([FromBody] string prompt)
         {
             var openAiClient = new OpenAIClient(
                 new ApiKeyCredential("ollama"),
-                new OpenAIClientOptions
-                {
-                    Endpoint = new Uri("http://localhost:11434/v1")
-                });
+                new OpenAIClientOptions { Endpoint = new Uri("http://localhost:11434/v1") });
 
-            var chatClient = openAiClient.GetChatClient("llama3");
+            // 1. Get the underlying client and cast it to IChatClient
+            IChatClient chatClient = openAiClient
+                .GetChatClient("qwen2.5:7b")
+                .AsIChatClient(); // This bridges OpenAI -> Microsoft.Extensions.AI
 
-            IChatClient client = chatClient.AsIChatClient();
+            var mathTools = new MathTools();
+            var tools = new List<AITool>
+    {
+        AIFunctionFactory.Create(mathTools.Add),
+        AIFunctionFactory.Create(mathTools.CreateInvoice)
+    };
 
-            var agent = new ChatClientAgent(
-                client,
-                name: "Assistant",
-                description: "Helpful assistant",
-                instructions: "You are a helpful C# assistant.");
-            
-            var result = await agent.RunAsync(prompt);
+            // 2. Now AsAIAgent will recognize the IChatClient receiver
+            AIAgent agent = chatClient.AsAIAgent(
+                instructions: "You are a helpful assistant. Use tools whenever required.",
+                tools: tools);
 
-            return Ok(result);
+            // 3. Use agent.RunAsync to handle the tool-calling loop automatically
+            var response = await agent.RunAsync(prompt);
+
+            return Ok(response.Text);
         }
     }
 }
