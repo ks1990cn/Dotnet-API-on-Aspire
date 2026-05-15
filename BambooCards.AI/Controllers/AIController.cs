@@ -12,7 +12,7 @@ using OpenAI;
 
 namespace BambooCards.AI.Controllers
 {
-    
+
 
     [ApiController]
     [Route("api/ai")]
@@ -65,10 +65,10 @@ namespace BambooCards.AI.Controllers
 
             var mathTools = new MathTools();
             var tools = new List<AITool>
-    {
-        AIFunctionFactory.Create(mathTools.Add),
-        AIFunctionFactory.Create(mathTools.CreateInvoice)
-    };
+                {
+                    AIFunctionFactory.Create(mathTools.Add),
+                    AIFunctionFactory.Create(mathTools.CreateInvoice)
+                };
 
             // 2. Now AsAIAgent will recognize the IChatClient receiver
             AIAgent agent = chatClient.AsAIAgent(
