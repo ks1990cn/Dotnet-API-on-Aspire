@@ -1,6 +1,8 @@
 ﻿using System.ClientModel;
+using BambooCards.AI.Executors;
 using BambooCards.AI.Tools;
 using Microsoft.Agents.AI;
+using Microsoft.Agents.AI.Workflows;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.AI;
 using Microsoft.SemanticKernel;
@@ -77,6 +79,44 @@ namespace BambooCards.AI.Controllers
             var response = await agent.RunAsync(prompt);
 
             return Ok(response.Text);
+        }
+
+        [HttpPost("workflow-agent")]
+        public async Task<IActionResult> GenerateBill([FromBody] List<int> prices)
+        {
+            // 1. Initialize Executors
+            var math = new MathExecutor();
+            var inventory = new InventoryExecutor();
+
+            // 2. Build the Workflow: Math -> Inventory
+            var builder = new WorkflowBuilder(math);
+            builder.AddEdge(math, inventory)
+                   .WithOutputFrom(inventory);
+
+            var workflow = builder.Build();
+
+            // 3. Run the Workflow
+            await using StreamingRun run = await InProcessExecution.RunStreamingAsync(workflow, prices);
+
+            // 4. Capture the final output from the events
+            string finalBill = string.Empty;
+
+            //Complete this
+            await foreach (WorkflowEvent evt in run.WatchStreamAsync())
+            {
+                Console.Write(evt);
+                if (evt is WorkflowOutputEvent outputEvent)
+                {
+                    Console.WriteLine($"{outputEvent}");
+                }
+
+                if (evt is WorkflowErrorEvent errorEvent)
+                {
+                    Console.WriteLine($"Workflow error: {errorEvent.Exception?.Message}");
+                    Console.WriteLine($"Details: {errorEvent.Exception}");
+                }
+            }
+            return Ok(finalBill);
         }
     }
 }
