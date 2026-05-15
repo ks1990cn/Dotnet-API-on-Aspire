@@ -47,7 +47,7 @@ namespace BambooCards.AI.Controllers
         }
 
         /// <summary>
-        /// This is example for linear workflow
+        /// This is example for non-deterministic linear workflow
         /// </summary>
         /// <param name="prompt"></param>
         /// <returns></returns>
@@ -81,6 +81,11 @@ namespace BambooCards.AI.Controllers
             return Ok(response.Text);
         }
 
+        /// <summary>
+        /// Example for linear work flow
+        /// </summary>
+        /// <param name="prices"></param>
+        /// <returns></returns>
         [HttpPost("workflow-agent")]
         public async Task<IActionResult> GenerateBill([FromBody] List<int> prices)
         {
